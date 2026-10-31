@@ -1,0 +1,1215 @@
+/* =========================================================
+   NEXA - MODERN AI ASSISTANT UI
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(90, 80, 255, 0.18),
+      transparent 35%
+    ),
+    #080910;
+
+  color: #f5f7ff;
+}
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(70, 100, 255, 0.08),
+      transparent 40%
+    );
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  width: 100%;
+  padding: 28px 20px 15px;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 700;
+  letter-spacing: -2px;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #b8c3ff,
+    #8b7cff
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.header p {
+  margin: 6px 0 0;
+
+  font-size: 14px;
+  color: rgba(220, 225, 255, 0.6);
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.main {
+  width: min(920px, calc(100% - 32px));
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  padding-bottom: 30px;
+}
+
+/* =========================================================
+   ORB
+   ========================================================= */
+
+.orb {
+  width: 110px;
+  height: 110px;
+
+  margin: 20px auto 12px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #ffffff,
+      #b8c1ff 10%,
+      #7165ff 35%,
+      #28265f 70%,
+      #111326
+    );
+
+  box-shadow:
+    0 0 25px rgba(108, 94, 255, 0.45),
+    0 0 70px rgba(75, 65, 255, 0.18);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.orb::before {
+  content: "";
+
+  position: absolute;
+  inset: -8px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(150, 145, 255, 0.25);
+}
+
+.orb span {
+  font-size: 38px;
+  font-weight: 700;
+
+  color: white;
+
+  text-shadow:
+    0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Listening */
+
+.orb.listening {
+  transform: scale(1.08);
+
+  animation: orbListening 1.2s infinite ease-in-out;
+
+  box-shadow:
+    0 0 30px rgba(80, 150, 255, 0.8),
+    0 0 80px rgba(80, 100, 255, 0.4);
+}
+
+/* Thinking */
+
+.orb.thinking {
+  animation: orbThinking 1.5s infinite ease-in-out;
+}
+
+/* =========================================================
+   ORB ANIMATIONS
+   ========================================================= */
+
+@keyframes orbListening {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes orbThinking {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.05);
+  }
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status {
+  text-align: center;
+
+  min-height: 24px;
+
+  margin-bottom: 16px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: rgba(220, 225, 255, 0.65);
+}
+
+/* =========================================================
+   CHAT
+   ========================================================= */
+
+.chat {
+  width: 100%;
+
+  min-height: 320px;
+  max-height: 55vh;
+
+  overflow-y: auto;
+
+  padding: 18px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.018)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(18px);
+}
+
+/* Scrollbar */
+
+.chat::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================================================
+   WELCOME
+   ========================================================= */
+
+.welcome {
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.welcome h2 {
+  margin: 0 0 10px;
+
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.welcome p {
+  margin: 0;
+
+  color: rgba(220, 225, 255, 0.55);
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.message {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 78%;
+
+  margin-bottom: 16px;
+
+  padding: 13px 16px;
+
+  border-radius: 18px;
+
+  animation: messageIn 0.25s ease;
+}
+
+@keyframes messageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* User */
+
+.message.user {
+  margin-left: auto;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(92, 79, 255, 0.75),
+      rgba(60, 87, 220, 0.65)
+    );
+
+  border-bottom-right-radius: 5px;
+
+  box-shadow:
+    0 8px 25px rgba(60, 70, 255, 0.18);
+}
+
+/* Nexa */
+
+.message.nexa {
+  margin-right: auto;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  border-bottom-left-radius: 5px;
+}
+
+/* Sender */
+
+.message strong {
+  margin-bottom: 5px;
+
+  font-size: 12px;
+
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Text */
+
+.message p {
+  margin: 0;
+
+  line-height: 1.55;
+
+  font-size: 14px;
+
+  white-space: pre-wrap;
+}
+
+/* =========================================================
+   WEB RESULTS
+   ========================================================= */
+
+.web-results {
+  margin-top: 14px;
+
+  padding: 14px;
+
+  border-radius: 15px;
+
+  background: rgba(0, 0, 0, 0.18);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.web-results h3 {
+  margin: 0 0 10px;
+
+  font-size: 14px;
+
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.web-result {
+  padding: 11px 0;
+
+  border-bottom: 1px solid rgba(
+    255,
+    255,
+    255,
+    0.07
+  );
+}
+
+.web-result:last-child {
+  border-bottom: none;
+}
+
+.web-result a {
+  color: #aeb8ff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.web-result a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.web-result p {
+  margin: 5px 0 0;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  color: rgba(220, 225, 255, 0.55);
+}
+
+/* =========================================================
+   CONTROLS
+   ========================================================= */
+
+.controls {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 15px;
+
+  padding: 9px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(15px);
+}
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.controls input {
+  flex: 1;
+
+  min-width: 0;
+
+  height: 46px;
+
+  padding: 0 15px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 13px;
+
+  background:
+    rgba(0, 0, 0, 0.25);
+
+  color: white;
+
+  font-size: 14px;
+}
+
+.controls input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.controls input:focus {
+  box-shadow:
+    0 0 0 1px rgba(120, 110, 255, 0.5);
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.controls button {
+  height: 46px;
+
+  padding: 0 15px;
+
+  border: none;
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.controls button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  background:
+    rgba(255, 255, 255, 0.14);
+
+  box-shadow:
+    0 7px 20px rgba(0, 0, 0, 0.2);
+}
+
+.controls button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   MICROPHONE
+   ========================================================= */
+
+.controls .mic {
+  width: 50px;
+
+  padding: 0;
+
+  font-size: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(100, 90, 255, 0.75),
+      rgba(70, 100, 230, 0.65)
+    );
+}
+
+.controls .mic:hover:not(:disabled) {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(120, 110, 255, 0.9),
+      rgba(80, 110, 255, 0.8)
+    );
+}
+
+.controls .mic-active {
+  animation: micPulse 1s infinite;
+
+  background:
+    rgba(220, 70, 100, 0.8);
+}
+
+@keyframes micPulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(220, 70, 100, 0.5);
+  }
+
+  70% {
+    box-shadow:
+      0 0 0 12px rgba(220, 70, 100, 0);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(220, 70, 100, 0);
+  }
+}
+
+/* =========================================================
+   WAKE WORD BUTTON
+   ========================================================= */
+
+.controls button:last-child {
+  white-space: nowrap;
+}
+
+.controls button:last-child:hover {
+  background:
+    rgba(100, 90, 255, 0.2);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .header {
+    padding-top: 20px;
+  }
+
+  .header h1 {
+    font-size: 40px;
+  }
+
+  .main {
+    width: calc(100% - 20px);
+  }
+
+  .orb {
+    width: 90px;
+    height: 90px;
+  }
+
+  .orb span {
+    font-size: 30px;
+  }
+
+  .chat {
+    min-height: 300px;
+    max-height: 58vh;
+    padding: 12px;
+  }
+
+  .message {
+    max-width: 88%;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+  }
+
+  .controls input {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  .controls button {
+    flex: 1;
+  }
+
+  .controls .mic {
+    flex: 0 0 52px;
+  }
+}
+
+/* =========================================================
+   VERY SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 420px) {
+  .controls button:last-child {
+    font-size: 11px;
+    padding: 0 9px;
+  }
+
+  .message {
+    max-width: 92%;
+  }
+}
+/* =========================================================
+   NEXA NEW UI
+   ========================================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7165ff,
+      #4f72ff
+    );
+
+  font-size: 20px;
+  font-weight: 800;
+
+  box-shadow:
+    0 0 25px rgba(90, 90, 255, 0.4);
+}
+
+.brand h1 {
+  text-align: left;
+  margin: 0;
+}
+
+.brand p {
+  text-align: left;
+}
+
+
+/* =========================================================
+   ORB EXTRA EFFECT
+   ========================================================= */
+
+.orb-glow {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(130, 140, 255, 0.25),
+      transparent 65%
+    );
+
+  animation: orbGlow 3s infinite ease-in-out;
+}
+
+@keyframes orbGlow {
+
+  0%,
+  100% {
+    transform: scale(0.85);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   WAKE ACTIVE ORB
+   ========================================================= */
+
+.orb.wake-active {
+  box-shadow:
+    0 0 25px rgba(80, 220, 150, 0.4),
+    0 0 65px rgba(80, 220, 150, 0.15);
+}
+
+
+/* =========================================================
+   VOICE WAVE
+   ========================================================= */
+
+.voice-wave {
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  margin: 3px auto 2px;
+
+  opacity: 0.35;
+}
+
+.voice-wave span {
+  width: 3px;
+  height: 8px;
+
+  border-radius: 10px;
+
+  background: #8c8cff;
+
+  transition:
+    height 0.2s ease;
+}
+
+.voice-wave.wave-active {
+  opacity: 1;
+}
+
+.voice-wave.wave-active span {
+  animation: soundWave 0.8s infinite ease-in-out;
+}
+
+.voice-wave.wave-active span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.voice-wave.wave-active span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.voice-wave.wave-active span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.voice-wave.wave-active span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.voice-wave.wave-active span:nth-child(5) {
+  animation-delay: 0.2s;
+}
+
+.voice-wave.wave-active span:nth-child(6) {
+  animation-delay: 0.1s;
+}
+
+.voice-wave.wave-active span:nth-child(7) {
+  animation-delay: 0s;
+}
+
+@keyframes soundWave {
+
+  0%,
+  100% {
+    height: 7px;
+  }
+
+  50% {
+    height: 30px;
+  }
+
+}
+
+
+/* =========================================================
+   THINKING WAVE
+   ========================================================= */
+
+.voice-wave.wave-thinking {
+  opacity: 0.8;
+}
+
+.voice-wave.wave-thinking span {
+  animation:
+    thinkingWave 1.2s infinite ease-in-out;
+}
+
+.voice-wave.wave-thinking span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.voice-wave.wave-thinking span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.voice-wave.wave-thinking span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.voice-wave.wave-thinking span:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+.voice-wave.wave-thinking span:nth-child(6) {
+  animation-delay: 0.5s;
+}
+
+.voice-wave.wave-thinking span:nth-child(7) {
+  animation-delay: 0.6s;
+}
+
+@keyframes thinkingWave {
+
+  0%,
+  100% {
+    height: 6px;
+    opacity: 0.4;
+  }
+
+  50% {
+    height: 22px;
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #777;
+}
+
+.status-ready .status-dot {
+  background: #888;
+}
+
+.status-listening .status-dot {
+  background: #5da8ff;
+
+  box-shadow:
+    0 0 10px #5da8ff;
+
+  animation:
+    statusPulse 1s infinite;
+}
+
+.status-thinking .status-dot {
+  background: #a18cff;
+
+  box-shadow:
+    0 0 10px #a18cff;
+
+  animation:
+    statusPulse 0.8s infinite;
+}
+
+.status-wake .status-dot {
+  background: #55df9a;
+
+  box-shadow:
+    0 0 10px #55df9a;
+}
+
+@keyframes statusPulse {
+
+  0%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   WELCOME
+   ========================================================= */
+
+.welcome-icon {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 12px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(120, 110, 255, 0.12);
+
+  font-size: 25px;
+}
+
+.welcome strong {
+  color: #aeb8ff;
+}
+
+.quick-hints {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  margin-top: 20px;
+}
+
+.quick-hints span {
+  padding: 8px 11px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.06);
+
+  color:
+    rgba(220, 225, 255, 0.55);
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   MESSAGE HEADER
+   ========================================================= */
+
+.message-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  margin-bottom: 7px;
+}
+
+.message-avatar {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  font-size: 11px;
+}
+
+.message.user .message-avatar {
+  background:
+    rgba(255, 255, 255, 0.12);
+}
+
+.message-header strong {
+  margin: 0;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.input-wrapper {
+  flex: 1;
+
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 0 12px;
+
+  border-radius: 13px;
+
+  background:
+    rgba(0, 0, 0, 0.25);
+}
+
+.input-wrapper .input-icon {
+  opacity: 0.5;
+}
+
+.input-wrapper input {
+  width: 100%;
+
+  height: 100%;
+
+  padding: 0;
+
+  background: transparent;
+
+  box-shadow: none;
+}
+
+.input-wrapper input:focus {
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   SEND BUTTON
+   ========================================================= */
+
+.send-button {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(100, 90, 255, 0.8),
+      rgba(70, 100, 230, 0.75)
+    ) !important;
+}
+
+
+/* =========================================================
+   WAKE BUTTON
+   ========================================================= */
+
+.wake-button {
+  min-width: 130px;
+}
+
+.wake-button.wake-on {
+  background:
+    rgba(60, 190, 120, 0.14);
+
+  border:
+    1px solid rgba(80, 220, 150, 0.25);
+}
+
+.wake-button.wake-on span {
+  color: #55df9a;
+
+  text-shadow:
+    0 0 8px #55df9a;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  margin-top: 14px;
+
+  font-size: 10px;
+
+  color:
+    rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================================================
+   MOBILE UPDATE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand h1 {
+    font-size: 30px;
+  }
+
+  .wake-button {
+    min-width: auto;
+  }
+
+}
+.utility-button {
+  width: 46px;
+  padding: 0 !important;
+}
+
+.utility-button:not(:disabled):hover {
+  background: rgba(255, 80, 100, 0.15) !important;
+}
+
+@media (max-width: 700px) {
+  .utility-button {
+    flex: 0 0 46px !important;
+  }
+}
